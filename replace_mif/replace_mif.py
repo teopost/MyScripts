@@ -25,9 +25,9 @@ def main(argv):
 		elif opt in ("-o", "--ofile"):
 			outputfile = arg
 	
-	print argv
-	print 'Input file is "', inputfile
-	print 'Output file is "', outputfile
+	#print argv
+	#print 'Input file is "', inputfile
+	#print 'Output file is "', outputfile
 
 	#sys.exit()
 	# Leggo il file origine
@@ -40,11 +40,11 @@ def main(argv):
 	to_replace="307000 "
 	
 	for line in fin:
-		print "Header: [" + line[0:2] + "]"
+		#print "Header: [" + line[0:2] + "]"
 		
 		cod_beg=27
 		cod_end=34
-		print "Ente: [" + line[cod_beg:cod_end] + "]"
+		#print "Ente: [" + line[cod_beg:cod_end] + "]"
 		if line[0:2]=="HR":
 			if line[cod_beg:cod_end] == to_search:
 				line = line[:cod_beg] + to_replace + line[cod_end:]
@@ -69,5 +69,6 @@ def main(argv):
    
 if __name__ == "__main__":
    main(sys.argv[1:])
+
 
 
