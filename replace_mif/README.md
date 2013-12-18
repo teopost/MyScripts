@@ -10,7 +10,6 @@ Esempio
 
 ```
 python replace_mif.py -i inputfile -o outputfile
-
 ```
 
 
