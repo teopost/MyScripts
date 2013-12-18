@@ -1,0 +1,76 @@
+#!/usr/bin/env python
+
+import os
+import sys
+import shutil
+import string
+import email
+import tempfile
+import smtplib
+#import datetime
+import time
+import subprocess
+from os.path import basename
+
+from datetime import datetime
+
+AppPath=os.path.realpath(os.path.dirname(sys.argv[0]))
+
+def runCmd(cmd, timeout=None):
+    '''
+    Will execute a command, read the output and return it back.
+
+    @param cmd: command to execute
+    @param timeout: process timeout in seconds
+    @return: a tuple of three: first stdout, then stderr, then exit code
+    @raise OSError: on missing command or if a timeout was reached
+    '''
+
+    ph_out = None # process output
+    ph_err = None # stderr
+    ph_ret = None # return code
+
+    p = subprocess.Popen(cmd, shell=True,
+                         stdout=subprocess.PIPE,
+                         stderr=subprocess.PIPE)
+    # if timeout is not set wait for process to complete
+    if not timeout:
+        ph_ret = p.wait()
+    else:
+        fin_time = time.time() + timeout
+        while p.poll() == None and fin_time > time.time():
+            time.sleep(1)
+
+        # if timeout reached, raise an exception
+        if fin_time < time.time():
+            # starting 2.6 subprocess has a kill() method which is preferable
+            # p.kill()
+            os.kill(p.pid, signal.SIGKILL)
+            raise OSError("Process timeout has been reached")
+
+        ph_ret = p.returncode
+
+
+    ph_out, ph_err = p.communicate()
+
+    return (ph_out, ph_err, ph_ret)
+
+
+if __name__ == "__main__":
+
+   # rw = open(AppPath + '/output.txt', 'w')
+   # rw.write('')
+   # rw.close
+   comando='find . -print | grep ''.sh'' > ./output.txt'
+   ph_out, ph_err, ph_ret = runCmd(comando)
+
+   rr = open(AppPath + '/output.txt','r')
+   rw = open(AppPath + '/output2.txt', 'w')
+   for line in rr.readlines():
+         nomefile=os.path.basename(line)
+         nomedir=os.path.dirname(line)
+         out="%s,%s" % (nomedir, nomefile)
+         rw.write(out)
+   rr.close()
+   rw.close()
+

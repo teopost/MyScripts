@@ -1,0 +1,36 @@
+# cat /etc/logmove.conf | grep -v "^#" | cut -d":" -f2
+
+for riga_attuale in `cat /etc/logmove.conf | grep -v "#"`
+do
+ giorni=`echo $riga_attuale | cut -d":" -f1`
+ copyonly=`echo $riga_attuale | cut -d":" -f2`
+ recurse=`echo $riga_attuale | cut -d":" -f3`
+ tag=`echo $riga_attuale | cut -d":" -f4`
+ dest="`echo $riga_attuale | cut -d":" -f5`"
+ source="`echo $riga_attuale | cut -d":" -f6`"
+
+if [ "$copyonly" = "Y" ]; then
+   copyswitch=""
+else
+   copyswitch="-m"
+fi
+
+if [ "$recurse" = "Y" ]; then
+   rec_switch="-r"
+else
+   rec_switch=""
+fi
+
+if [ "$tag" = "" ]; then
+   tag_switch=""
+else
+   tag_switch="-f $tag"
+fi
+
+# comando="${rec_switch} ${tag_switch} -d ${giorni} -s ${source} -o ${dest}"
+# echo "Eseguo: logmove.sh " $comando
+# logmove.sh $comando
+
+ logmove.sh ${copyswitch} ${rec_switch} ${tag_switch} -d ${giorni} -s "${source}" -o "${dest}"
+
+done
