@@ -8,7 +8,10 @@ Effettua una sostituzione di una scringa in un file di testo solo se esistono sp
 Esempio
 ========
 
-'''
+```
 python replace_mif.py -i inputfile -o outputfile
-'''
+
+```
+
+
 
