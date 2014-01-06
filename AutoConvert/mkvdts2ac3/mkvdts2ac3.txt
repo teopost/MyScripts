@@ -1,0 +1,14 @@
+http://www.setupswarm.com/main/media/ubuntu-dts-to-ac3
+
+https://github.com/JakeWharton/mkvdts2ac3
+
+
+Installazione su ubuntu:
+--------------------------
+sudo apt-get install mkvtoolnix
+sudo apt-get install libdca-utils
+
+
+Esecuzione del comando per i miei casi con compressione disabilitata:
+
+mkvdts2ac3.sh --compress none -i -d -k BenvenutiAlSud.mkv
