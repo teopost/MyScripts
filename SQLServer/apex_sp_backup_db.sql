@@ -1,7 +1,7 @@
 /*
 
 Backup Sample: 
-exec apex_sp_backup_db 'AM_ROMIRI', 'c:\temp\migrazione'
+exec apex_sp_backup_db 'AM_ROMIRI', 'c:\tmp'
 go
 
 */
@@ -32,7 +32,7 @@ begin
   begin 
     set @bckstmt = 'BackUp Database ' + @dbname + ' to ' +
       'Disk = ' + char(39) + @backupDir + '\' + rtrim(ltrim(@dbname)) + '.bak' + char(39) + ' ' +
-      'WITH NOFORMAT,INIT' 
+      'WITH NOFORMAT,COMPRESSION,INIT' 
    exec (@bckstmt)
     print @bckstmt
     fetch cdb into @dbname
