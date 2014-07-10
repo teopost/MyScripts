@@ -32,7 +32,7 @@ begin
   begin 
     set @bckstmt = 'BackUp Database ' + @dbname + ' to ' +
       'Disk = ' + char(39) + @backupDir + '\' + rtrim(ltrim(@dbname)) + '.bak' + char(39) + ' ' +
-      'WITH NOFORMAT,COMPRESSION,INIT' 
+      'WITH NOFORMAT,INIT' 
    exec (@bckstmt)
     print @bckstmt
     fetch cdb into @dbname
