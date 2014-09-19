@@ -1,1 +1,0 @@
-select 'grant select on ' || table_name || ' to public with grant option;' from user_tables;
